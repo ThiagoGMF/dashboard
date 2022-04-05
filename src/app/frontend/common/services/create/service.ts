@@ -25,22 +25,17 @@ import {CsrfTokenService} from '../global/csrftoken';
 import {NamespaceService} from '../global/namespace';
 
 const i18n = {
-  /** Text shown on failed deploy in error dialog. */
+
   MSG_DEPLOY_DIALOG_ERROR: 'Deploying file has failed',
 
-  /** Text shown on partly completed deploy in error dialog. */
   MSG_DEPLOY_DIALOG_PARTIAL_COMPLETED: 'Deployment has been partly completed',
 
-  /** Title for the dialog shown on deploy validation error. */
   MSG_DEPLOY_ANYWAY_DIALOG_TITLE: 'Validation error occurred',
 
-  /** Content for the dialog shown on deploy validation error. */
   MSG_DEPLOY_ANYWAY_DIALOG_CONTENT: 'Would you like to deploy anyway?',
 
-  /** Confirmation text for the dialog shown on deploy validation error. */
   MSG_DEPLOY_ANYWAY_DIALOG_OK: 'Yes',
 
-  /** Cancellation text for the dialog shown on deploy validation error. */
   MSG_DEPLOY_ANYWAY_DIALOG_CANCEL: 'No',
 };
 

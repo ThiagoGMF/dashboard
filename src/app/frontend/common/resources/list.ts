@@ -64,7 +64,7 @@ export abstract class ResourceListBase<T extends ResourceList, R extends Resourc
   protected readonly kdState_: KdStateService;
   protected readonly settingsService_: GlobalSettingsService;
   protected readonly namespaceService_: NamespaceService;
-  // Base properties
+
   private readonly actionColumns_: Array<ActionColumnDef<ActionColumn>> = [];
   private readonly data_ = new MatTableDataSource<R>();
   private stateName_ = '';
@@ -73,7 +73,7 @@ export abstract class ResourceListBase<T extends ResourceList, R extends Resourc
   private readonly dynamicColumns_: ColumnWhenCondition[] = [];
   private paramsService_: ParamsService;
   private router_: Router;
-  // Data select properties
+
   @ViewChild(MatSort, {static: true}) private readonly matSort_: MatSort;
   @ViewChild(MatPaginator, {static: true}) private readonly matPaginator_: MatPaginator;
   @ViewChild(CardListFilterComponent, {static: true})
@@ -316,7 +316,7 @@ export abstract class ResourceListBase<T extends ResourceList, R extends Resourc
   }
 
   private getSortBy_(): string {
-    // Default values.
+
     let ascending = true;
     let active: string = SortableColumn.Created;
 
@@ -409,8 +409,7 @@ export abstract class ResourceListWithStatuses<T extends ResourceList, R extends
       }
     }
 
-    // map() is needed here to cast hash from string to number. Without it compiler will not
-    // recognize stateBinding type.
+
     for (const hash of Object.keys(this.bindings_).map((hash): number => Number(hash))) {
       const stateBinding = this.bindings_[hash];
       if (stateBinding.callbackFunction(resource)) {
@@ -489,10 +488,7 @@ class Icon {
     this.tooltip = tooltip;
   }
 
-  /**
-   * Implementation of djb2 hash function:
-   * http://www.cse.yorku.ca/~oz/hash.html
-   */
+
   hash(): number {
     const value = `${this.name}#${this.cssClass}#${this.tooltip}`;
     return value

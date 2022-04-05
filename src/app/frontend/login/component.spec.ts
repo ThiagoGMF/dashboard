@@ -58,7 +58,6 @@ class MockAuthService {
       },
     ];
 
-    // fake an error if token isn't what we expect.
     if (loginSpec && loginSpec.token === loginToken) {
       return of([]);
     }

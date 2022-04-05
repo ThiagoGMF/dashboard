@@ -39,8 +39,7 @@ import {DeployLabel} from './deploylabel/deploylabel';
 import {validateUniqueName} from './validator/uniquename.validator';
 import {FormValidators} from './validator/validators';
 
-// Label keys for predefined labels
-const APP_LABEL_KEY = 'k8s-app';
+const APP_PREDEFINED_LABEL_KEY = 'k8s-app';
 
 @Component({
   selector: 'kd-create-from-form',
@@ -145,7 +144,7 @@ export class CreateFromFormComponent extends ICanDeactivate implements OnInit {
       variables: this.fb_.control([]),
       labels: this.fb_.control([]),
     });
-    this.labelArr = [new DeployLabel(APP_LABEL_KEY, '', false), new DeployLabel()];
+    this.labelArr = [new DeployLabel(APP_PREDEFINED_LABEL_KEY, '', false), new DeployLabel()];
     this.name.valueChanges.subscribe(v => {
       this.labelArr[0].value = v;
       this.labels.patchValue([{index: 0, value: v}]);
@@ -199,17 +198,10 @@ export class CreateFromFormComponent extends ICanDeactivate implements OnInit {
     return this.namespace_.areMultipleNamespacesSelected();
   }
 
-  /**
-   * Returns true if more options have been enabled and should be shown, false otherwise.
-   */
   isMoreOptionsEnabled(): boolean {
     return this.showMoreOptions_;
   }
 
-  /**
-   * Shows or hides more options.
-   * @export
-   */
   switchMoreOptions(): void {
     this.showMoreOptions_ = !this.showMoreOptions_;
   }
@@ -221,10 +213,6 @@ export class CreateFromFormComponent extends ICanDeactivate implements OnInit {
       .afterClosed()
       .pipe(take(1))
       .subscribe(answer => {
-        /**
-         * Handles namespace dialog result. If namespace was created successfully then it
-         * will be selected, otherwise first namespace will be selected.
-         */
         if (answer) {
           this.namespaces.push(answer);
           this.namespace.patchValue(answer);
@@ -241,11 +229,6 @@ export class CreateFromFormComponent extends ICanDeactivate implements OnInit {
       .afterClosed()
       .pipe(take(1))
       .subscribe(response => {
-        /**
-         * Handles create secret dialog result. If the secret was created successfully, then it
-         * will be selected,
-         * otherwise None is selected.
-         */
         if (response) {
           this.secrets.push(response);
           this.imagePullSecret.patchValue(response);
@@ -255,9 +238,6 @@ export class CreateFromFormComponent extends ICanDeactivate implements OnInit {
       });
   }
 
-  /**
-   * Returns true when the given port mapping is filled by the user, i.e., is not empty.
-   */
   isPortMappingFilled(portMapping: PortMapping): boolean {
     return !!portMapping.port && !!portMapping.targetPort;
   }
@@ -270,9 +250,6 @@ export class CreateFromFormComponent extends ICanDeactivate implements OnInit {
     return typeof value === 'number' && !isNaN(value);
   }
 
-  /**
-   * Converts array of DeployLabel to array of backend api label.
-   */
   toBackendApiLabels(labels: DeployLabel[]): DeployLabel[] {
     labels[0].key = this.labelArr[0].key;
     labels[0].value = this.labelArr[0].value;

@@ -203,10 +203,8 @@ export class ShellComponent implements AfterViewInit, OnDestroy {
     this.connecting_ = false;
     this.connectionClosed_ = false;
 
-    // Make sure the terminal is with correct display size.
     this.onTerminalResize();
 
-    // Focus on connection
     this.term.focus();
     this.cdr_.markForCheck();
   }

@@ -24,7 +24,6 @@ export class HistoryService {
 
   constructor(private readonly injector_: Injector) {}
 
-  /** Initializes the service. Must be called before use. */
   init(): void {
     this.router_ = this.injector_.get(Router);
 
@@ -44,9 +43,6 @@ export class HistoryService {
     this.currentStateUrl_ = navigation.initialUrl.toString();
   }
 
-  /**
-   * Goes back to previous state or to the provided defaultState if none set.
-   */
   goToPreviousState(defaultState: string): Promise<boolean> {
     if (this.previousStateUrl_ && this.previousStateUrl_ !== this.currentStateUrl_) {
       return this.router_.navigateByUrl(this.previousStateUrl_);

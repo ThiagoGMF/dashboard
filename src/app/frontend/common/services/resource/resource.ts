@@ -24,10 +24,7 @@ import {NamespaceService} from '../global/namespace';
 
 @Injectable()
 export class ResourceService<T> extends ResourceBase<T> {
-  /**
-   * We need to provide HttpClient here since the base is not annotated with
-   * @Injectable
-   */
+
   constructor(readonly http: HttpClient, private readonly settings_: GlobalSettingsService) {
     super(http);
   }

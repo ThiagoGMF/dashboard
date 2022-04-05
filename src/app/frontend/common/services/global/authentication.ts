@@ -116,10 +116,6 @@ export class AuthService {
     this.router_.navigate(['login']);
   }
 
-  /**
-   * Sends a token refresh request to the backend. In case user is not logged in
-   * with token nothing will happen.
-   */
   refreshToken(): void {
     const token = this.getTokenCookie_();
     if (token.length === 0) return;
@@ -148,15 +144,10 @@ export class AuthService {
       });
   }
 
-  /** Checks if user is authenticated. */
   isAuthenticated(loginStatus: LoginStatus): boolean {
     return loginStatus.headerPresent || loginStatus.tokenPresent || !this.isLoginPageEnabled();
   }
 
-  /**
-   * Checks authentication is enabled. It is enabled only on HTTPS. Can be
-   * overridden by 'enable-insecure-login' flag passed to dashboard.
-   */
   isAuthenticationEnabled(loginStatus: LoginStatus): boolean {
     return loginStatus.httpsMode;
   }

@@ -111,7 +111,6 @@ export class PortMappingsComponent implements OnInit, ControlValueAccessor {
   }
 
   changeServiceType(): void {
-    // add or remove port mappings
     if (this.serviceType.value === NO_SERVICE) {
       const length = this.portMappings.length;
       for (let i = 0; i < length; i++) {
@@ -121,7 +120,6 @@ export class PortMappingsComponent implements OnInit, ControlValueAccessor {
       this.portMappings.push(this.newEmptyPortMapping(this.protocols[0]));
     }
 
-    // set flag
     this.isExternal = this.serviceType.value.external;
     this.changeExternal.emit(this.isExternal);
 
@@ -167,16 +165,10 @@ export class PortMappingsComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  /**
-   * Returns true when the given port mapping is filled by the user, i.e., is not empty.
-   */
   private isPortMappingFilled(portMapping: AbstractControl): boolean {
     return !!portMapping.get('port').value && !!portMapping.get('targetPort').value;
   }
 
-  /**
-   * Validates port mapping. In case when only one port is specified it is considered as invalid.
-   */
   private validatePortMapping(portIndex: number): void {
     if (portIndex === 0) {
       return;
@@ -197,9 +189,6 @@ export class PortMappingsComponent implements OnInit, ControlValueAccessor {
     this.portMappingForm.updateValueAndValidity();
   }
 
-  /**
-   * Returns true when the given port mapping is filled or empty (both ports), false otherwise.
-   */
   private isPortMappingFilledOrEmpty(port: number, targetPort: number): boolean {
     return !port === !targetPort;
   }
@@ -212,10 +201,6 @@ export class PortMappingsComponent implements OnInit, ControlValueAccessor {
     this.portMappings.removeAt(index);
   }
 
-  /**
-   * Returns true if the given port mapping is the first in the list.
-   * @param {number} index
-   */
   isFirst(index: number): boolean {
     return index === 0;
   }

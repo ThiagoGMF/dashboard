@@ -73,9 +73,8 @@ export class LogsComponent implements OnDestroy {
       .pipe(
         switchMap<LogSources, Observable<LogDetails>>(data => {
           this.logSources = data;
-          this.pod = data.podNames[0]; // Pick first pod (cannot use resource name as it may
-          // not be a pod).
-          this.container = containerName ? containerName : data.containerNames[0]; // Pick from URL or first.
+          this.pod = data.podNames[0];
+          this.container = containerName ? containerName : data.containerNames[0];
           this.appendContainerParam_();
 
           return this.logService.getResource(`${namespace}/${this.pod}/${this.container}`);
@@ -101,13 +100,10 @@ export class LogsComponent implements OnDestroy {
 
   onContainerChange() {
     this.appendContainerParam_();
-    this.loadNewest();
+    this.loadNewestMaxLogSize();
   }
 
-  /**
-   * Loads maxLogSize oldest lines of logs.
-   */
-  loadOldest(): void {
+  loadOldestMaxLogSize(): void {
     this.loadView_(
       LogControl.LoadStart,
       LogControl.TimestampOldest,
@@ -118,10 +114,7 @@ export class LogsComponent implements OnDestroy {
     );
   }
 
-  /**
-   * Loads maxLogSize newest lines of logs.
-   */
-  loadNewest(): void {
+  loadNewestMaxLogSize(): void {
     this.loadView_(
       LogControl.LoadEnd,
       LogControl.TimestampNewest,
@@ -132,9 +125,6 @@ export class LogsComponent implements OnDestroy {
     );
   }
 
-  /**
-   * Shifts view by maxLogSize lines to the past.
-   */
   loadOlder(): void {
     this.loadView_(
       this.currentSelection.logFilePosition,
@@ -146,9 +136,6 @@ export class LogsComponent implements OnDestroy {
     );
   }
 
-  /**
-   * Shifts view by maxLogSize lines to the future.
-   */
   loadNewer(): void {
     this.loadView_(
       this.currentSelection.logFilePosition,
@@ -173,18 +160,12 @@ export class LogsComponent implements OnDestroy {
     this.logsSet = this.formatAllLogs_(this.podLogs.logs);
   }
 
-  /**
-   * Execute when a user changes the selected option for show previous container logs.
-   * @export
-   */
+
   onPreviousChange(): void {
     this.logService.togglePrevious();
-    this.loadNewest();
+    this.loadNewestMaxLogSize();
   }
 
-  /**
-   * Toggles log auto-refresh mechanism.
-   */
   toggleLogAutoRefresh(): void {
     this.logService.toggleAutoRefresh();
     this.toggleIntervalFunction_();
@@ -201,17 +182,11 @@ export class LogsComponent implements OnDestroy {
     this.dialog_.open(LogsDownloadDialog, dialogData);
   }
 
-  /**
-   * Listens for scroll events to set log following state.
-   */
-  onLogsScroll(): void {
+  onLogsScrollHandler(): void {
     this.logService.setFollowing(this.isScrolledBottom_());
   }
 
-  /**
-   * Updates all state parameters and sets the current log view with the data returned from the
-   * backend If logs are not available sets logs to no logs available message.
-   */
+
   private updateUiModel_(podLogs: LogDetails): void {
     this.podLogs = podLogs;
     this.currentSelection = podLogs.selection;
@@ -221,7 +196,6 @@ export class LogsComponent implements OnDestroy {
     }
 
     if (this.logService.getFollowing()) {
-      // Pauses very slightly for the view to refresh.
       setTimeout(() => {
         this.scrollToBottom_();
       });
@@ -283,9 +257,6 @@ export class LogsComponent implements OnDestroy {
       });
   }
 
-  /**
-   * Starts and stops interval function used to automatically refresh logs.
-   */
   private toggleIntervalFunction_(): void {
     if (!this.logService.getAutoRefresh()) {
       this.refreshUnsubscribe_.next();
@@ -312,23 +283,14 @@ export class LogsComponent implements OnDestroy {
       );
   }
 
-  /**
-   * Scrolls log view to the bottom of the page.
-   */
   private scrollToBottom_(): void {
     this.scrollTo_('BOTTOM');
   }
 
-  /**
-   * Scrolls log view to the top of the page.
-   */
   private scrollToTop_(): void {
     this.scrollTo_('TOP');
   }
 
-  /**
-   * Checks if the current logs scroll position is at the bottom.
-   */
   private isScrolledBottom_(): boolean {
     const {nativeElement} = this.logViewContainer_;
     return nativeElement.scrollHeight <= nativeElement.scrollTop + nativeElement.clientHeight;

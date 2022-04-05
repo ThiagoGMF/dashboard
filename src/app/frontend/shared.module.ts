@@ -53,12 +53,10 @@ import {PipesModule} from '@common/pipes/module';
 import {KD_TOOLTIP_DEFAULT_OPTIONS} from './index.config';
 
 const SHARED_DEPENDENCIES = [
-  // Angular imports
   CommonModule,
   FormsModule,
   ReactiveFormsModule,
 
-  // Material imports
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
@@ -88,14 +86,11 @@ const SHARED_DEPENDENCIES = [
   MatAutocompleteModule,
   MatListModule,
 
-  // Other 3rd party modules
   FlexLayoutModule,
   RouterModule,
   NgPipesModule,
   NgxChartsModule,
   InViewportModule,
-
-  // Custom application modules
   PipesModule,
 ];
 

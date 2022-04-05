@@ -36,13 +36,8 @@ export interface CreateNamespaceDialogMeta {
 export class CreateNamespaceDialog implements OnInit {
   form: FormGroup;
 
-  /**
-   * Max-length validation rule for namespace
-   */
   namespaceMaxLength = 63;
-  /**
-   * Pattern validation rule for namespace
-   */
+
   namespacePattern = new RegExp('^[a-z0-9]([-a-z0-9]*[a-z0-9])?$');
 
   constructor(
@@ -68,9 +63,6 @@ export class CreateNamespaceDialog implements OnInit {
     return this.form.get('namespace');
   }
 
-  /**
-   * Creates new namespace based on the state of the controller.
-   */
   createNamespace(): void {
     if (!this.form.valid) return;
 

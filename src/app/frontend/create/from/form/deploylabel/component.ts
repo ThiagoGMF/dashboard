@@ -73,9 +73,6 @@ export class DeployLabelComponent implements ControlValueAccessor {
     return this.labelForm.get('labels') as FormArray;
   }
 
-  /**
-   * Adds row to labels list.
-   */
   private addNewLabel(key = '', value = '', editable = true): void {
     this.labels.push(
       this.fb_.group({
@@ -97,11 +94,6 @@ export class DeployLabelComponent implements ControlValueAccessor {
     );
   }
 
-  /**
-   * Calls checks on label:
-   *  - adds label if last empty label has been filled
-   *  - checks for duplicated key and sets validity of element
-   */
   check(index: number): void {
     this.addIfNeeded();
     this.validateKey(index);
@@ -124,9 +116,6 @@ export class DeployLabelComponent implements ControlValueAccessor {
     return !!(currentEditable && currentkey !== lastKey && currentValue !== lastValue);
   }
 
-  /**
-   * Deletes row from labels list.
-   */
   deleteLabel(index: number): void {
     this.labels.removeAt(index);
   }
@@ -145,12 +134,8 @@ export class DeployLabelComponent implements ControlValueAccessor {
     this.labelForm.updateValueAndValidity();
   }
 
-  /**
-   * Returns true if there are 2 or more labels with the same key on the labelList,
-   * false otherwise.
-   */
   private isKeyDuplicated(index: number): boolean {
-    /** @type {number} */
+
     let duplications = 0;
 
     const currentKey = this.labels.at(index).get('key').value;
@@ -177,9 +162,6 @@ export class DeployLabelComponent implements ControlValueAccessor {
     }
   }
 
-  /**
-   * Returns true if label key and value are not empty, false otherwise.
-   */
   private isFilled(label: AbstractControl): boolean {
     return label.get('key').value.length !== 0 && label.get('value').value.length !== 0;
   }

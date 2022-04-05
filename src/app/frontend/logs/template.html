@@ -43,7 +43,7 @@ limitations under the License.
     <span i18n>in</span>
     <mat-form-field>
       <mat-select [(ngModel)]="pod"
-                  (selectionChange)="loadNewest()">
+                  (selectionChange)="loadNewestMaxLogSize()">
         <mat-option *ngFor="let item of logSources?.podNames"
                     [value]="item"> {{ item }} </mat-option>
       </mat-select>
@@ -105,7 +105,7 @@ limitations under the License.
 
     <div>
       <button mat-icon-button
-              (click)="loadOldest()">
+              (click)="loadOldestMaxLogSize()">
         <mat-icon>first_page</mat-icon>
       </button>
       <button mat-icon-button
@@ -117,7 +117,7 @@ limitations under the License.
         <mat-icon>chevron_right</mat-icon>
       </button>
       <button mat-icon-button
-              (click)="loadNewest()">
+              (click)="loadNewestMaxLogSize()">
         <mat-icon>last_page</mat-icon>
       </button>
     </div>

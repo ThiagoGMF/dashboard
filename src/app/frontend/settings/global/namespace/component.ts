@@ -161,7 +161,6 @@ export class NamespaceSettingsComponent implements OnInit, OnDestroy, ControlVal
       });
   }
 
-  // ControlValueAccessor interface implementation
   writeValue(obj: NamespaceSettings): void {
     if (!obj) {
       return;

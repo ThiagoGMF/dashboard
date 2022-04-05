@@ -17,12 +17,11 @@ import {NgModule} from '@angular/core';
 import {ComponentsModule} from '@common/components/module';
 import {SharedModule} from '../../../shared.module';
 
-// import {EventDetailComponent} from './detail/component';
 import {EventListComponent} from './list/component';
 import {EventRoutingModule} from './routing';
 
 @NgModule({
   imports: [SharedModule, ComponentsModule, EventRoutingModule],
-  declarations: [EventListComponent /* , EventDetailComponent */],
+  declarations: [EventListComponent],
 })
 export class EventModule {}

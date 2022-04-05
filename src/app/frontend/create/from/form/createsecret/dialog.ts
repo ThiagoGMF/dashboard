@@ -33,19 +33,10 @@ export interface CreateSecretDialogMeta {
 export class CreateSecretDialog implements OnInit {
   form: FormGroup;
 
-  /**
-   * Max-length validation rule for secretName.
-   */
   secretNameMaxLength = 253;
 
-  /**
-   * Pattern validation rule for secretName.
-   */
   secretNamePattern = new RegExp('^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$');
 
-  /**
-   * Pattern validating if the secret data is Base64 encoded.
-   */
   dataPattern = new RegExp('^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$');
 
   constructor(
@@ -79,9 +70,6 @@ export class CreateSecretDialog implements OnInit {
     return this.form.get('data');
   }
 
-  /**
-   * Creates new secret based on the state of the controller.
-   */
   createSecret(): void {
     if (!this.form.valid) return;
 
@@ -118,9 +106,6 @@ export class CreateSecretDialog implements OnInit {
       );
   }
 
-  /**
-   * Cancels the create secret form.
-   */
   cancel(): void {
     this.dialogRef.close();
   }

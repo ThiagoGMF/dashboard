@@ -29,7 +29,6 @@ export class ConfigService {
 
   init(): void {
     this.getAppConfig().subscribe(config => {
-      // Set init time when response from the backend will arrive.
       this.config_ = config;
       this.initTime_ = new Date().getTime();
     });
